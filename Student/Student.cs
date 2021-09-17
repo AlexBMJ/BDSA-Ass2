@@ -13,7 +13,8 @@ namespace Student
         public DateTime GraduationDate { get; set; }
 
         public string toString() {
-            return $"Id: {Id.ToString()}, Name: {GivenName}, Surname: {Surname}, Status: {Status}, Start Date: {StartDate.ToString()}, End Date: {EndDate.ToString()}, Graduation Date: {GraduationDate.ToString()}"
+            return
+                $"Id: {Id.ToString()}, Name: {GivenName}, Surname: {Surname}, Status: {Status}, Start Date: {StartDate.ToString()}, End Date: {EndDate.ToString()}, Graduation Date: {GraduationDate.ToString()}";
         }
     }
 
