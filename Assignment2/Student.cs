@@ -39,4 +39,27 @@ namespace Assignment2
         Dropout,
         Graduated
     }
+
+    public record ImmutableStudent {
+        public int Id { get; init; }
+        public string GivenName { get; init; }
+        public string Surname { get; init; }
+        public Statuses Status {
+            get {
+                var now = DateTime.Now;
+                if (StartDate + TimeSpan.FromDays(180) > now)
+                    return Statuses.New;
+                if (StartDate < now && EndDate > now)
+                    return Statuses.Active;
+                if (GraduationDate < StartDate && EndDate < now)
+                    return Statuses.Dropout;
+                if (GraduationDate > StartDate && GraduationDate > now)
+                    return Statuses.Graduated;
+                throw new InvalidTimeZoneException();
+            }
+        }
+        public DateTime StartDate { get; init; }
+        public DateTime EndDate { get; init; }
+        public DateTime GraduationDate { get; init; }
+    }
 }
