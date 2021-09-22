@@ -59,7 +59,7 @@ namespace Assignment2.Tests
             };
 
             string output = Istudent.ToString();
-            string expected = "ImmutableStudent { Id = 1, GivenName = John, Surname = Doe, Status = Active, StartDate = 08/24/2020 12:00:00 AM, EndDate = 07/23/2023 12:00:00 AM, GraduationDate = 07/15/2023 12:00:00 AM }";
+            string expected = "ImmutableStudent { Id = 1, GivenName = John, Surname = Doe, Status = Active, StartDate = 08/24/2020 00:00:00 AM, EndDate = 07/23/2023 00:00:00 AM, GraduationDate = 07/15/2023 00:00:00 AM }";
 
             Assert.Equal(expected, output);
         }
