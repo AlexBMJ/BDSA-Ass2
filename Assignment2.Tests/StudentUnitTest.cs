@@ -4,15 +4,38 @@ using System;
 
 namespace Assignment2.Tests
 {
-    public class StudentUnitTest
-    {
+    public class StudentUnitTest {
         [Fact]
-        public void Status_GivenStartDate2020andEndDate2023andNow2021_ReturnsActive() {
+        public void Status_GivenStartDate417DaysAgoAndEndDate1year9months_7days_ReturnsActive() {
             var student = new Student() {Id = 1, GivenName = "John", Surname = "Doe"};
-            student.StartDate = new DateTime(2020, 8, 24);
-            student.EndDate = new DateTime(2023, 7, 23);
-            Console.WriteLine(student.ToString());
+            student.StartDate = DateTime.Now.Subtract(TimeSpan.FromDays(417));
+            student.EndDate = DateTime.Now.AddYears(1).AddMonths(9).AddDays(6);
             Assert.Equal(Statuses.Active, student.Status);
+        }
+        
+        [Fact]
+        public void Status_GivenStartDate100DaysAgoAndEndDate2year8months_21days_ReturnsNew() {
+            var student = new Student() {Id = 1, GivenName = "John", Surname = "Doe"};
+            student.StartDate = DateTime.Now.Subtract(TimeSpan.FromDays(100));
+            student.EndDate = DateTime.Now.AddYears(2).AddMonths(8).AddDays(21);
+            Assert.Equal(Statuses.New, student.Status);
+        }
+        
+        [Fact]
+        public void Status_GivenStartDate100DaysAgoAndEndDate7daysAgo_ReturnsDropout() {
+            var student = new Student() {Id = 1, GivenName = "John", Surname = "Doe"};
+            student.StartDate = DateTime.Now.Subtract(TimeSpan.FromDays(100));
+            student.EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(7));
+            Assert.Equal(Statuses.Dropout, student.Status);
+        }
+        
+        [Fact]
+        public void Status_GivenStartDate1095DaysAgoAndEndDate7daysAgoAndGraduationDate7daysAgo_ReturnsGraduated() {
+            var student = new Student() {Id = 1, GivenName = "John", Surname = "Doe"};
+            student.StartDate = DateTime.Now.Subtract(TimeSpan.FromDays(1095));
+            student.EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(7));
+            student.GraduationDate = DateTime.Now.Subtract(TimeSpan.FromDays(7));
+            Assert.Equal(Statuses.Graduated, student.Status);
         }
 
         [Fact]
@@ -59,7 +82,7 @@ namespace Assignment2.Tests
             };
 
             string output = Istudent.ToString();
-            string expected = "ImmutableStudent { Id = 1, GivenName = John, Surname = Doe, Status = Active, StartDate = 08/24/2020 00:00:00, EndDate = 07/23/2023 00:00:00, GraduationDate = 07/15/2023 00:00:00 }";
+            string expected = $"ImmutableStudent {{ Id = 1, GivenName = John, Surname = Doe, Status = Active, StartDate = {Istudent.StartDate.ToString()}, EndDate = {Istudent.EndDate.ToString()}, GraduationDate = {Istudent.GraduationDate.ToString()} }}";
 
             Assert.Equal(expected, output);
         }
