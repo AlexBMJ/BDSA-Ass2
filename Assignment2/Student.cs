@@ -10,13 +10,13 @@ namespace Assignment2
         public Statuses Status {
             get {
                 var now = DateTime.Now;
-                if (StartDate + TimeSpan.FromDays(180) > now)
+                if (StartDate + TimeSpan.FromDays(180) > now && EndDate > now)
                     return Statuses.New;
                 if (StartDate < now && EndDate > now)
                     return Statuses.Active;
                 if (GraduationDate < StartDate && EndDate < now)
                     return Statuses.Dropout;
-                if (GraduationDate > StartDate && GraduationDate > now)
+                if (GraduationDate > StartDate && GraduationDate < now)
                     return Statuses.Graduated;
                 throw new InvalidTimeZoneException();
             }
@@ -25,8 +25,6 @@ namespace Assignment2
         public DateTime EndDate { get; set; }
         public DateTime GraduationDate { get; set; }
 
-
-        
         public string ToString() {
             return
                 $"Id: {Id.ToString()}, Name: {GivenName}, Surname: {Surname}, Status: {Status.ToString()}, Start Date: {StartDate.ToString()}, End Date: {EndDate.ToString()}, Graduation Date: {GraduationDate.ToString()}";
